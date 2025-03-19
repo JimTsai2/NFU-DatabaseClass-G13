@@ -1,5 +1,8 @@
-# NFU-DatabaseClass-G13
-Natinal Formosa University_Data Base System Class-G13
+# 虎科大美食評論系統
+提供兩大板塊功能，分別為社群和清單   
+清單板塊讓user可以對虎科大周邊各個店家進行評價可上傳評論以及圖片；社群版塊則類似社交平台讓user主+動發布店家美食的分享文的形式
 
-
+# 組員
+41143250 蔡士雋
 41143218 周羿廷
+41143217 阮國霖
