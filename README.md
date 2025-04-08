@@ -20,7 +20,7 @@
 使用者必須要有Email和電話驗證才能發表評價、貼文跟留言  
 
 ## ER Diagram
-![image](https://github.com/user-attachments/assets/241c44bb-575e-42fc-aa73-e5c37be6afd2)
+![image](https://github.com/user-attachments/assets/18a3fcf6-a974-4cc9-9ac2-dfc94e028385)
 
 ## 組員
 41143250 蔡士雋  
