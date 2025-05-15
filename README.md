@@ -21,16 +21,17 @@
 
 ```sql
 CREATE TABLE users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
+    phone_number INT
 );
 ```
 
 | 欄位名稱 | 資料型別 | 中文說明 | 完整性限制 |
 |----------|-------------|----------|--------------|
-| `id`     | INTEGER | 使用者編號 | 主鍵，自動產生 |
-| `name`   | VARCHAR(100) | 使用者姓名 |  |
+| `user_id`     | INTEGER | 使用者編號 | 主鍵，自動產生 |
+| `user_name`   | VARCHAR(100) | 使用者姓名 |  |
 | `email`  | VARCHAR(100 | 電子郵件 |  |
 | `phone_number`  | INTEGER | 電話號碼 |  |
 ---
