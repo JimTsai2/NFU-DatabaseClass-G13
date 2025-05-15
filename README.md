@@ -16,6 +16,10 @@
 (Empty)  
 
 ## 資料庫結構
+(Empty) 
+### ER Diagram
+![9a887f61-ed1d-4740-b71b-81142cedb158](https://github.com/user-attachments/assets/04349853-215f-4282-ba16-442ab4d7dd28)
+### 資料表結構
 
 ### 1. `users` – 使用者資料表
 
@@ -36,10 +40,6 @@ CREATE TABLE users (
 | `phone_number`  | INTEGER | 電話號碼 |  |
 ---
 
-### ER Diagram
-![9a887f61-ed1d-4740-b71b-81142cedb158](https://github.com/user-attachments/assets/04349853-215f-4282-ba16-442ab4d7dd28)
-### 資料表結構
-(Empty)  
 ### 資料表關聯說明
 (Empty)  
 ### 完整性限制
