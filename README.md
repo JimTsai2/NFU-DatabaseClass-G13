@@ -16,14 +16,15 @@
 ![9a887f61-ed1d-4740-b71b-81142cedb158](https://github.com/user-attachments/assets/04349853-215f-4282-ba16-442ab4d7dd28)
  
 ## 資料庫Schema
-### 客人使用者資料表
+### 使用者資料表
 
 ```sql
-CREATE TABLE customer (
+CREATE TABLE user (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    phone_number INT
+    phone_number INT,
+    type SET
 );
 ```
 
@@ -33,9 +34,10 @@ CREATE TABLE customer (
 | `user_name`   | VARCHAR(100) | 使用者姓名 | 長度為1-50的字元 |
 | `email`  | VARCHAR(100 | 電子郵件 | 長度為1-100的字元 |
 | `phone_number`  | INTEGER | 電話號碼 | 阿拉伯數字，必須剛好10碼  |
+| `type`  | SET | 身分類別 | 分為客戶身分、老闆身分  |
 ---
 
-### 商家使用者資料表
+### 商家資料表
 
 ```sql
 CREATE TABLE store (
