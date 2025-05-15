@@ -81,6 +81,25 @@ CREATE TABLE store (
 | `description`  | VARCHAR(1000) | 簡介 | 長度為0-1000的字元 |
 ---
 
+### 貼文資料表
+
+```sql
+CREATE TABLE post (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    date DATETIME,
+    content VARCHAR(1000),
+    picture
+);
+```
+
+| 欄位名稱 | 資料型別 | 中文說明 | 完整性限制 |
+|----------|-------------|----------|--------------|
+| `user_id`     | INTEGER | 使用者代號 | 主鍵，自動產生(從1開始遞增) |
+| `date`   | DATETIME | 日期 | YYYY-MM-DD HH:MM:SS.ffffff |
+| `content`  | VARCHAR(1000) | 內文 | 長度為0-1000的文字 |
+| `picture`  | VARCHAR(100) | |  |
+---
+
 ## SQL 
 (empty)
 
