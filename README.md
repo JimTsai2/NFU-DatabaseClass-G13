@@ -21,6 +21,11 @@
 ![9a887f61-ed1d-4740-b71b-81142cedb158](https://github.com/user-attachments/assets/04349853-215f-4282-ba16-442ab4d7dd28)
 ### 資料表結構
 
+### 資料表關聯說明
+(Empty)  
+## 資料庫Schema
+### 客人使用者資料表
+
 ### 1. `users` – 使用者資料表
 
 ```sql
@@ -40,11 +45,6 @@ CREATE TABLE users (
 | `phone_number`  | INTEGER | 電話號碼 |  |
 ---
 
-
-### 資料表關聯說明
-(Empty)  
-## 資料庫Schema
-### 客人使用者資料表
 ### 商家使用者資料表
 
 
