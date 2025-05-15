@@ -26,10 +26,8 @@
 ## 資料庫Schema
 ### 客人使用者資料表
 
-### 1. `users` – 使用者資料表
-
 ```sql
-CREATE TABLE users (
+CREATE TABLE customer (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -39,7 +37,7 @@ CREATE TABLE users (
 
 | 欄位名稱 | 資料型別 | 中文說明 | 完整性限制 |
 |----------|-------------|----------|--------------|
-| `user_id`     | INTEGER | 使用者編號 | 主鍵，自動產生 |
+| `user_id`     | INTEGER | 使用者代號 | 主鍵，自動產生 |
 | `user_name`   | VARCHAR(100) | 使用者姓名 |  |
 | `email`  | VARCHAR(100 | 電子郵件 |  |
 | `phone_number`  | INTEGER | 電話號碼 |  |
@@ -47,6 +45,24 @@ CREATE TABLE users (
 
 ### 商家使用者資料表
 
+```sql
+CREATE TABLE store (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone_number INT
+);
+```
+
+| 欄位名稱 | 資料型別 | 中文說明 | 完整性限制 |
+|----------|-------------|----------|--------------|
+| `store_id`     | INTEGER | 店家代號 | 主鍵，自動產生 |
+| `store_name`   | VARCHAR(100) | 店家名稱 |  |
+| `email`  | VARCHAR(100) | 電子郵件 |  |
+| `tel_number`  | INTEGER | 電話號碼 |  |
+| `address`  | VARCHAR(100) | 地址 |  |
+| `website`  | VARCHAR(100) | 網站 |  |
+---
 
 ## 組員
 | 學號 | 姓名 | 分工 |
