@@ -47,10 +47,12 @@ CREATE TABLE customer (
 
 ```sql
 CREATE TABLE store (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_name VARCHAR(100) NOT NULL,
+    store_id INT PRIMARY KEY AUTO_INCREMENT,
+    store_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    phone_number INT
+    tel_number INT,
+    address VARCHAR(100),
+    website VARCHAR(100)
 );
 ```
 
