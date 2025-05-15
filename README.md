@@ -38,9 +38,9 @@ CREATE TABLE customer (
 | 欄位名稱 | 資料型別 | 中文說明 | 完整性限制 |
 |----------|-------------|----------|--------------|
 | `user_id`     | INTEGER | 使用者代號 | 主鍵，自動產生 |
-| `user_name`   | VARCHAR(100) | 使用者姓名 |  |
-| `email`  | VARCHAR(100 | 電子郵件 |  |
-| `phone_number`  | INTEGER | 電話號碼 |  |
+| `user_name`   | VARCHAR(100) | 使用者姓名 | 長度為1-50的字元 |
+| `email`  | VARCHAR(100 | 電子郵件 | 長度為1-100的字元 |
+| `phone_number`  | INTEGER | 電話號碼 | 阿拉伯數字，必須剛好10碼  |
 ---
 
 ### 商家使用者資料表
@@ -58,12 +58,12 @@ CREATE TABLE store (
 
 | 欄位名稱 | 資料型別 | 中文說明 | 完整性限制 |
 |----------|-------------|----------|--------------|
-| `store_id`     | INTEGER | 店家代號 | 主鍵，自動產生 |
-| `store_name`   | VARCHAR(100) | 店家名稱 |  |
-| `email`  | VARCHAR(100) | 電子郵件 |  |
-| `tel_number`  | INTEGER | 電話號碼 |  |
-| `address`  | VARCHAR(100) | 地址 |  |
-| `website`  | VARCHAR(100) | 網站 |  |
+| `store_id`     | INTEGER | 店家代號 | 主鍵，自動產生(從1開始遞增) |
+| `store_name`   | VARCHAR(100) | 店家名稱 | 長度為1-100的字元 |
+| `email`  | VARCHAR(100) | 電子郵件 | 長度為1-100的字元 |
+| `tel_number`  | INTEGER | 電話號碼 | 阿拉伯數字，必須剛好10碼 |
+| `address`  | VARCHAR(100) | 地址 | 長度為1-100的字元 |
+| `website`  | VARCHAR(100) | 網站 | 長度為1-100的字元 |
 ---
 
 ## 組員
