@@ -49,10 +49,10 @@ CREATE TABLE customer (
 CREATE TABLE store (
     store_id INT PRIMARY KEY AUTO_INCREMENT,
     store_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
     tel_number INT,
     address VARCHAR(100),
-    website VARCHAR(100)
+    website VARCHAR(100),
+    description VARCHAR(1000)
 );
 ```
 
@@ -60,10 +60,10 @@ CREATE TABLE store (
 |----------|-------------|----------|--------------|
 | `store_id`     | INTEGER | 店家代號 | 主鍵，自動產生(從1開始遞增) |
 | `store_name`   | VARCHAR(100) | 店家名稱 | 長度為1-100的字元 |
-| `email`  | VARCHAR(100) | 電子郵件 | 長度為1-100的字元 |
 | `tel_number`  | INTEGER | 電話號碼 | 阿拉伯數字，必須剛好10碼 |
-| `address`  | VARCHAR(100) | 地址 | 長度為1-100的字元 |
-| `website`  | VARCHAR(100) | 網站 | 長度為1-100的字元 |
+| `address`  | VARCHAR(100) | 地址 | 長度為0-100的字元 |
+| `website`  | VARCHAR(100) | 網站 | 長度為0-100的字元 |
+| `description`  | VARCHAR(1000) | 簡介 | 長度為0-1000的字元 |
 ---
 
 ## 組員
