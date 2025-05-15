@@ -58,6 +58,8 @@ CREATE TABLE store (
 | `description`  | VARCHAR(1000) | 簡介 | 長度為0-1000的字元 |
 ---
 
+## SQL 
+(empty)
 ## 組員
 | 學號 | 姓名 | 分工 |
 |------|------|------|
