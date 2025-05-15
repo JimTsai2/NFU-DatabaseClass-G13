@@ -40,6 +40,7 @@ CREATE TABLE users (
 | `phone_number`  | INTEGER | 電話號碼 |  |
 ---
 
+
 ### 資料表關聯說明
 (Empty)  
 ### 完整性限制
