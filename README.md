@@ -98,7 +98,7 @@ CREATE TABLE post (
 | `user_id`     | INTEGER | 使用者代號 | 否 | 主鍵，自動產生(從1開始遞增) |
 | `date`   | DATETIME | 日期 | 否 | YYYY-MM-DD HH:MM:SS |
 | `content`  | VARCHAR(1000) | 內文 | 否 | 長度為0-1000的文字 |
-| `picture`  | VARCHAR(100) | | 是 |  |
+| `picture`  |  | | 是 |  |
 ---
 
 ### 評價資料表
