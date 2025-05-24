@@ -117,7 +117,7 @@ CREATE TABLE score (
 |----------|-------------|----------|--------------|
 | `user_id`     | INTEGER | 使用者代號 | 主鍵，自動產生(從1開始遞增) |
 | `title`     | VARCHAR(10) | 標題 | 長度為0-10的文字 |
-| `score_date`   | DATETIME | 評價日期 | YYYY-MM-DD HH:MM:SS.ffffff |
+| `score_date`   | DATETIME | 評價日期 | YYYY-MM-DD HH:MM:SS |
 | `content`  | VARCHAR(20) | 內文 | 長度為0-20的文字 |
 | `score`  | INTEGER | 評分 | 分數介於1-10分 |
 ---
