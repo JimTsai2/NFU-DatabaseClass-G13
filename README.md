@@ -45,8 +45,8 @@ CREATE TABLE user (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    phone_number INT,
-    type SET
+    phone_number INT NOT NULL,
+    type SET NOT　ＮULL
 );
 ```
 
