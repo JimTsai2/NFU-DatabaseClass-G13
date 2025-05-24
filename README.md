@@ -65,8 +65,8 @@ CREATE TABLE user (
 CREATE TABLE store (
     store_id INT PRIMARY KEY AUTO_INCREMENT,
     store_name VARCHAR(100) NOT NULL,
-    tel_number INT,
-    address VARCHAR(100),
+    tel_number INT NOT NULL,
+    address VARCHAR(100) NOT NULL,
     website VARCHAR(100),
     description VARCHAR(1000)
 );
@@ -87,8 +87,8 @@ CREATE TABLE store (
 ```sql
 CREATE TABLE post (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    date DATETIME,
-    content VARCHAR(1000),
+    date DATETIME NOT NULL,
+    content VARCHAR(1000) NOT NULL,
     picture
 );
 ```
@@ -106,20 +106,20 @@ CREATE TABLE post (
 ```sql
 CREATE TABLE score (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(10),
-    score_date DATETIME,
-    content VARCHAR(1000),
-    score INTEGER
+    title VARCHAR(10) NOT NULL,
+    score_date DATETIME NOT NULL,
+    content VARCHAR(1000) NOT NULL,
+    score INTEGER NOT NULL
 );
 ```
 
 | 欄位名稱 | 資料型別 | 中文說明 | 是否為空值 | 完整性限制 |
 |----------|-------------|----------|----|--------------|
 | `user_id`     | INTEGER | 使用者代號 | 否 | 主鍵，自動產生(從1開始遞增) |
-| `title`     | VARCHAR(10) | 標題 | 否 | 長度為0-10的文字 |
+| `title`     | VARCHAR(10) | 標題 | 否 | 長度為1-10的文字 |
 | `score_date`   | DATETIME | 評價日期 | 否 | YYYY-MM-DD HH:MM:SS |
 | `content`  | VARCHAR(20) | 內文 | 否 | 長度為0-20的文字 |
-| `score`  | INTEGER | 評分 | 是 | 分數介於1-10分 |
+| `score`  | INTEGER | 評分 | 否 | 分數介於1-10分 |
 ---
 ## SQL 
 (empty)
