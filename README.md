@@ -96,7 +96,7 @@ CREATE TABLE post (
 | 欄位名稱 | 資料型別 | 中文說明 | 完整性限制 |
 |----------|-------------|----------|--------------|
 | `user_id`     | INTEGER | 使用者代號 | 主鍵，自動產生(從1開始遞增) |
-| `date`   | DATETIME | 日期 | YYYY-MM-DD HH:MM:SS.ffffff |
+| `date`   | DATETIME | 日期 | YYYY-MM-DD HH:MM:SS |
 | `content`  | VARCHAR(1000) | 內文 | 長度為0-1000的文字 |
 | `picture`  | VARCHAR(100) | |  |
 ---
