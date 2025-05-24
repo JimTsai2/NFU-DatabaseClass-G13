@@ -46,7 +46,7 @@ CREATE TABLE user (
     user_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     phone_number INT NOT NULL,
-    type SET NOT ＮULL
+    type SET NOT NULL
 );
 ```
 
