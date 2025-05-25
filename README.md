@@ -113,12 +113,15 @@ CREATE TABLE post (
 ### 評價資料表
 
 ```sql
-CREATE TABLE score (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE user_reviews (
+    review_id INT AUTO_INCREMENT,
+    user_id INT NOT NULL,
     title VARCHAR(10) NOT NULL,
     score_date DATETIME NOT NULL,
-    content VARCHAR(1000) NOT NULL,
-    score INTEGER NOT NULL
+    content VARCHAR(20) NOT NULL,
+    score INT NOT NULL CHECK (score BETWEEN 1 AND 10),
+    PRIMARY KEY (review_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 ```
 
