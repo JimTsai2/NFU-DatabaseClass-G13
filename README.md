@@ -165,7 +165,4 @@ CREATE TABLE user_reviews (
 - FOREIGN KEY:用來引用另一個表中的PRIMARY KEY，建立並加強表之間的鏈接
 
 ---
-## SQL 
-(empty)
-
 
