@@ -42,11 +42,11 @@
 
 ```sql
 CREATE TABLE users (
-    user_id INT NOT NULL AUTO_INCREMENT,  -- 主鍵，自動產生
-    user_name VARCHAR(50) NOT NULL,       -- 長度限制為1-50
-    email VARCHAR(100) NOT NULL,          -- 長度限制為1-100
-    phone_number CHAR(10) NOT NULL,       -- 限定為10碼的阿拉伯數字
-    type SET('Customer', 'Proprietor') NOT NULL,  -- SET類型的欄位
+    user_id INT NOT NULL AUTO_INCREMENT,
+    user_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone_number CHAR(10) NOT NULL,
+    type SET('Customer', 'Proprietor') NOT NULL,
     PRIMARY KEY (user_id),
     CHECK (CHAR_LENGTH(user_name) BETWEEN 1 AND 50),
     CHECK (phone_number REGEXP '^[0-9]{10}$')
@@ -65,13 +65,19 @@ CREATE TABLE users (
 ### 商家資料表
 
 ```sql
-CREATE TABLE store (
-    store_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE stores (
+    store_id INT NOT NULL AUTO_INCREMENT,
     store_name VARCHAR(100) NOT NULL,
-    tel_number INT NOT NULL,
+    tel_number CHAR(10) NOT NULL,
     address VARCHAR(100) NOT NULL,
     website VARCHAR(100),
-    description VARCHAR(1000)
+    description VARCHAR(1000),
+    PRIMARY KEY (store_id),
+    CHECK (CHAR_LENGTH(store_name) BETWEEN 1 AND 100),
+    CHECK (tel_number REGEXP '^[0-9]{10}$'),
+    CHECK (CHAR_LENGTH(address) BETWEEN 0 AND 100),
+    CHECK (website IS NULL OR CHAR_LENGTH(website) BETWEEN 0 AND 100),
+    CHECK (description IS NULL OR CHAR_LENGTH(description) BETWEEN 0 AND 1000)
 );
 ```
 
