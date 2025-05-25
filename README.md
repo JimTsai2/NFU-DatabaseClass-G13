@@ -137,15 +137,15 @@ CREATE TABLE user_posts (
 
 ```sql
 CREATE TABLE user_reviews (
-    review_id INT AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    title VARCHAR(10) NOT NULL,
-    score_date DATETIME NOT NULL,
-    content VARCHAR(20) NOT NULL,
-    score INT NOT NULL,
-    CHECK (score BETWEEN 1 AND 10),
-    PRIMARY KEY (review_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    review_id INT AUTO_INCREMENT,--每個評論的識別碼
+    user_id INT NOT NULL,--撰寫評論的用戶
+    title VARCHAR(10) NOT NULL,--評論的簡短標題
+    score_date DATETIME NOT NULL,--記錄提交評論的日期和時間
+    content VARCHAR(20) NOT NULL,--儲存評論的文字內容
+    score INT NOT NULL,--儲存評論的評分
+    CHECK (score BETWEEN 1 AND 10),--檢查score介於1到10分
+    PRIMARY KEY (review_id),--確保每個review_id是唯一的
+    FOREIGN KEY (user_id) REFERENCES users(user_id)--將user_reviews連結到users，確保每個user_id都存在於users中
 );
 ```
 
@@ -157,6 +157,13 @@ CREATE TABLE user_reviews (
 | `score_date`   | DATETIME | 評價日期 | 否 | YYYY-MM-DD HH:MM:SS |
 | `content`  | VARCHAR(20) | 內文 | 否 | 長度為0-20的文字 |
 | `score`  | INTEGER | 評分 | 否 | 分數介於1-10分 |
+
+**SQL說明：**
+- AUTO_INCREMENT:自動產生一個整數，從1開始
+- PRIMARY KEY:主鍵，確保唯一性
+- CHECK:檢查約束
+- FOREIGN KEY:用來引用另一個表中的PRIMARY KEY，建立並加強表之間的鏈接
+
 ---
 ## SQL 
 (empty)
