@@ -43,14 +43,14 @@
 
 ```sql
 CREATE TABLE users (
-    user_id INT NOT NULL AUTO_INCREMENT,
-    user_name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    phone_number CHAR(10) NOT NULL,
-    type SET('Customer', 'Proprietor') NOT NULL,
-    PRIMARY KEY (user_id),
-    CHECK (CHAR_LENGTH(user_name) BETWEEN 1 AND 50),
-    CHECK (phone_number REGEXP '^[0-9]{10}$')
+    user_id INT NOT NULL AUTO_INCREMENT,--每個使用者的唯一識別碼
+    user_name VARCHAR(50) NOT NULL,--儲存用戶的姓名
+    email VARCHAR(100) NOT NULL,--儲存使用者的電子郵件
+    phone_number CHAR(10) NOT NULL,--儲存用戶的電話號碼
+    type SET('Customer', 'Proprietor') NOT NULL,--標示使用者的類型(客戶或業主)
+    PRIMARY KEY (user_id),--確保user_id是唯一的
+    CHECK (CHAR_LENGTH(user_name) BETWEEN 1 AND 50),--檢查user_name的長度介於1-50
+    CHECK (phone_number REGEXP '^[0-9]{10}$')--檢查電話號碼為0-9的阿拉伯數字，且長度為10碼
 );
 ```
 
@@ -62,6 +62,9 @@ CREATE TABLE users (
 | `phone_number`  | INTEGER | 電話號碼 | 否 | 阿拉伯數字，必須剛好10碼  |
 | `type`  | SET | 身分類別 | 否 | 分為客戶身分、老闆身分  |
 ---
+
+**說明：**
+-user_id
 
 ### 商家資料表
 
