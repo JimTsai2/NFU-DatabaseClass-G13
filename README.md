@@ -41,12 +41,15 @@
 ### 使用者資料表
 
 ```sql
-CREATE TABLE user (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    phone_number INT NOT NULL,
-    type SET NOT NULL
+CREATE TABLE users (
+    user_id INT NOT NULL AUTO_INCREMENT,  -- 主鍵，自動產生
+    user_name VARCHAR(50) NOT NULL,       -- 長度限制為1-50
+    email VARCHAR(100) NOT NULL,          -- 長度限制為1-100
+    phone_number CHAR(10) NOT NULL,       -- 限定為10碼的阿拉伯數字
+    type SET('Customer', 'Proprietor') NOT NULL,  -- SET類型的欄位
+    PRIMARY KEY (user_id),
+    CHECK (CHAR_LENGTH(user_name) BETWEEN 1 AND 50),
+    CHECK (phone_number REGEXP '^[0-9]{10}$')
 );
 ```
 
