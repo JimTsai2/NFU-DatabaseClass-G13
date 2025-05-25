@@ -107,7 +107,7 @@ CREATE TABLE post (
 | `user_id`     | INTEGER | 使用者代號 | 否 | 主鍵，自動產生(從1開始遞增) |
 | `date`   | DATETIME | 日期 | 否 | YYYY-MM-DD HH:MM:SS |
 | `content`  | VARCHAR(1000) | 內文 | 否 | 長度為0-1000的文字 |
-| `picture`  |  | | 是 |  |
+| `picture`  | VARCHAR(255) | 圖片 | 是 | 網址 |
 ---
 
 ### 評價資料表
@@ -119,7 +119,8 @@ CREATE TABLE user_reviews (
     title VARCHAR(10) NOT NULL,
     score_date DATETIME NOT NULL,
     content VARCHAR(20) NOT NULL,
-    score INT NOT NULL CHECK (score BETWEEN 1 AND 10),
+    score INT NOT NULL,
+    CHECK (score BETWEEN 1 AND 10),
     PRIMARY KEY (review_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
@@ -127,7 +128,8 @@ CREATE TABLE user_reviews (
 
 | 欄位名稱 | 資料型別 | 中文說明 | 是否為空值 | 完整性限制 |
 |----------|-------------|----------|----|--------------|
-| `user_id`     | INTEGER | 使用者代號 | 否 | 主鍵，自動產生(從1開始遞增) |
+| `reviews_id`     | INTEGER | 評論代號 | 否 | 主鍵，自動產生 |
+| `user_id`     | INTEGER | 使用者代號 | 否 | 外鍵，和使用者做連結 |
 | `title`     | VARCHAR(10) | 標題 | 否 | 長度為1-10的文字 |
 | `score_date`   | DATETIME | 評價日期 | 否 | YYYY-MM-DD HH:MM:SS |
 | `content`  | VARCHAR(20) | 內文 | 否 | 長度為0-20的文字 |
