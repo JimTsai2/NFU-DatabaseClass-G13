@@ -44,9 +44,9 @@
 ```sql
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT,--每個使用者的識別碼
-    user_name VARCHAR(50) NOT NULL,--儲存用戶的姓名
+    user_name VARCHAR(50) NOT NULL,--儲存使用者的姓名
     email VARCHAR(100) NOT NULL,--儲存使用者的電子郵件
-    phone_number CHAR(10) NOT NULL,--儲存用戶的電話號碼
+    phone_number CHAR(10) NOT NULL,--儲存使用者的電話號碼
     type SET('Customer', 'Proprietor') NOT NULL,--標示使用者的類型(客戶或業主)
     PRIMARY KEY (user_id),--確保user_id是唯一的
     CHECK (CHAR_LENGTH(user_name) BETWEEN 1 AND 50),--檢查user_name的長度介於1-50
@@ -83,7 +83,7 @@ CREATE TABLE stores (
     CHECK (CHAR_LENGTH(store_name) BETWEEN 1 AND 100),--檢查store_name長度介於1到100
     CHECK (tel_number REGEXP '^[0-9]{10}$'),--檢查tel_number為0–9的阿拉伯數字，且為10碼
     CHECK (CHAR_LENGTH(address) BETWEEN 0 AND 100),--檢查address的長度介於1到100個字元
-    CHECK (website IS NULL OR CHAR_LENGTH(website) BETWEEN 0 AND 100),--檢查website的長度介於0-1000個字元
+    CHECK (website IS NULL OR CHAR_LENGTH(website) BETWEEN 0 AND 100),--檢查website的長度介於0-100個字元
     CHECK (description IS NULL OR CHAR_LENGTH(description) BETWEEN 0 AND 1000)
 );--檢查description的長度介於0-1000個字元
 ```
@@ -109,7 +109,7 @@ CREATE TABLE stores (
 ```sql
 CREATE TABLE user_posts (
     post_id INT AUTO_INCREMENT,--每個貼文的識別碼
-    user_id INT NOT NULL,--識別創建貼文的用戶
+    user_id INT NOT NULL,--識別建立貼文的使用者
     date DATETIME NOT NULL,--儲存貼文的建立日期和時間
     content VARCHAR(1000) NOT NULL,--儲存貼文的文字內容
     picture VARCHAR(255),--儲存與貼文相關的檔案路徑
@@ -138,7 +138,7 @@ CREATE TABLE user_posts (
 ```sql
 CREATE TABLE user_reviews (
     review_id INT AUTO_INCREMENT,--每個評論的識別碼
-    user_id INT NOT NULL,--撰寫評論的用戶
+    user_id INT NOT NULL,--撰寫評論的使用者
     title VARCHAR(10) NOT NULL,--評論的簡短標題
     score_date DATETIME NOT NULL,--記錄提交評論的日期和時間
     content VARCHAR(20) NOT NULL,--儲存評論的文字內容
