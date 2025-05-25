@@ -43,7 +43,7 @@
 
 ```sql
 CREATE TABLE users (
-    user_id INT NOT NULL AUTO_INCREMENT,--每個使用者的唯一識別碼
+    user_id INT NOT NULL AUTO_INCREMENT,--每個使用者的識別碼
     user_name VARCHAR(50) NOT NULL,--儲存用戶的姓名
     email VARCHAR(100) NOT NULL,--儲存使用者的電子郵件
     phone_number CHAR(10) NOT NULL,--儲存用戶的電話號碼
@@ -61,10 +61,13 @@ CREATE TABLE users (
 | `email`  | VARCHAR(100 | 電子郵件 | 否 | 長度為1-100的字元 |
 | `phone_number`  | INTEGER | 電話號碼 | 否 | 阿拉伯數字，必須剛好10碼  |
 | `type`  | SET | 身分類別 | 否 | 分為客戶身分、老闆身分  |
----
 
-**說明：**
--user_id
+**SQL說明：**
+- AUTO_INCREMENT:自動產生一個整數，從1開始
+- PRIMARY KEY:主鍵，確保唯一性
+- CHECK:檢查約束
+
+---
 
 ### 商家資料表
 
