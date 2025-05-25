@@ -95,11 +95,14 @@ CREATE TABLE stores (
 ### 貼文資料表
 
 ```sql
-CREATE TABLE post (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE user_posts (
+    post_id INT AUTO_INCREMENT,
+    user_id INT NOT NULL,
     date DATETIME NOT NULL,
     content VARCHAR(1000) NOT NULL,
-    picture
+    picture VARCHAR(255),
+    PRIMARY KEY (post_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 ```
 
