@@ -34,7 +34,8 @@
 
 
 ### ER Diagram
-"C:\Users\阮國霖\OneDrive\桌面\1.jpg"
+![1](https://github.com/user-attachments/assets/57eade0c-216b-452e-a74a-d6b24507ef72)
+
 
  
 ## 資料庫Schema
