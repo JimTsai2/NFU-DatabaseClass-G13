@@ -86,7 +86,6 @@ CREATE TABLE stores (
     website VARCHAR(100),--儲存商店的網站
     description VARCHAR(1000),--儲存商店的介紹文字
     PRIMARY KEY (store_id),--確保每個store_id是唯一的
-    UNIQUE(store_name),--確保store_name的唯一性
     UNIQUE(tel_number),--確保tel_number的唯一性
     CHECK (CHAR_LENGTH(store_name) BETWEEN 1 AND 100),--檢查store_name長度介於1到100
     CONSTRAINT chk_tel_number CHECK (tel_number REGEXP '^09[0-9]{8}$' OR '^05[0-9]{7}$'),--檢查電話正確輸入
@@ -98,11 +97,11 @@ CREATE TABLE stores (
 
 | 欄位名稱 | 資料型別 | 中文說明 | 是否為空值 | 完整性限制 |
 |----------|-------------|----------|----|--------------|
-| `store_id`     | INTEGER | 店家代號 | 否 | 主鍵，自動產生(從1開始遞增) |
+| `store_id`     | INTEGER | 店家代號 | 否 | 主鍵，自動產生(從1開始遞增)，限制為正整數 (UNSIGNED)，避免負數 |
 | `store_name`   | VARCHAR(100) | 店家名稱 | 否 | 長度為1-100的字元，不可為空 |
-| `tel_number`  | INTEGER | 電話號碼 | 否 | 阿拉伯數字，必須剛好10碼 |
-| `address`  | VARCHAR(100) | 地址 | 否 | 長度為1-100的字元 |
-| `website`  | VARCHAR(100) | 網站 | 是 | 長度為0-100的字元 |
+| `tel_number`  | VARCHAR(10) | 電話號碼 | 否 | 阿拉伯數字，手機必須為10碼，以 "09" 開頭，或室內電話必須為9碼，以"05"開頭，有唯一性限制 |
+| `address`  | VARCHAR(100) | 地址 | 否 | 長度為1-100的字元，不可為空 |
+| `website`  | VARCHAR(100) | 網站 | 是 | 長度為0-100的字元，若不為空，必須符合有效 URL 格式 |
 | `description`  | VARCHAR(1000) | 簡介 | 是 | 長度為0-1000的字元 |
 
 **SQL說明：**
