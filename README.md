@@ -147,25 +147,27 @@ CREATE TABLE user_posts (
 
 ```sql
 CREATE TABLE user_reviews (
-    review_id INT AUTO_INCREMENT,--每個評論的識別碼
+    review_id INT UNSIGNED AUTO_INCREMENT,--每個評論的識別碼
     user_id INT NOT NULL,--撰寫評論的使用者
     title VARCHAR(10) NOT NULL,--評論的簡短標題
     score_date DATETIME NOT NULL,--記錄提交評論的日期和時間
     content VARCHAR(20) NOT NULL,--儲存評論的文字內容
     score INT NOT NULL,--儲存評論的評分
-    CHECK (score BETWEEN 1 AND 10),--檢查score介於1到10分
     PRIMARY KEY (review_id),--確保每個review_id是唯一的
-    FOREIGN KEY (user_id) REFERENCES users(user_id)--將user_reviews連結到users，確保每個user_id都存在於users中
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,--建立索引，並當users表的user_id被更新時，同步更新
+    CONSTRAINT chk_title CHECK (title REGEXP '^[a-zA-Z0-9\u4e00-\u9fa5]+$'),--檢查title的正確格式
+    CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 20),--檢查content的長度介於1-20
+    CHECK (score BETWEEN 1 AND 10),--檢查score介於1到10分
 );
 ```
 
 | 欄位名稱 | 資料型別 | 中文說明 | 是否為空值 | 完整性限制 |
 |----------|-------------|----------|----|--------------|
-| `reviews_id`     | INTEGER | 評論代號 | 否 | 主鍵，自動產生 |
-| `user_id`     | INTEGER | 使用者代號 | 否 | 外鍵，和使用者做連結 |
+| `reviews_id`     | INTEGER | 評論代號 | 否 | 主鍵，自動產生，限制為正整數 (UNSIGNED)，避免負數 |
+| `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送評論的users，當users的user_id有所變動，也會跟著變動 |
 | `title`     | VARCHAR(10) | 標題 | 否 | 長度為1-10的文字 |
-| `score_date`   | DATETIME | 評價日期 | 否 | YYYY-MM-DD HH:MM:SS |
-| `content`  | VARCHAR(20) | 內文 | 否 | 長度為0-20的文字 |
+| `score_date`   | DATETIME | 評價日期 | 否 | 格式為(YYYY-MM-DD HH:MM:SS) |
+| `content`  | VARCHAR(20) | 內文 | 否 | 長度為1-20的文字 |
 | `score`  | INTEGER | 評分 | 否 | 分數介於1-10分 |
 
 **SQL說明：**
