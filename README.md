@@ -117,7 +117,7 @@ CREATE TABLE stores (
 CREATE TABLE user_posts (
     post_id INT UNSIGNED AUTO_INCREMENT,--每個貼文的識別碼
     user_id INT NOT NULL,--識別建立貼文的使用者
-    date DATETIME NOT NULL CURRENT_TIMESTAMP,--儲存貼文的建立日期和時間
+    date DATETIME NOT NULL,--儲存貼文的建立日期和時間
     content VARCHAR(1000) NOT NULL,--儲存貼文的文字內容
     picture VARCHAR(255),--儲存與貼文相關的檔案路徑
     PRIMARY KEY (post_id),--確保每個post_id是唯一的識別碼
@@ -131,9 +131,9 @@ CREATE TABLE user_posts (
 |----------|-------------|----------|----|--------------|
 | `post_id`     | INTEGER | 貼文代號 | 否 | 主鍵，自動產生(從1開始遞增)，限制為正整數 (UNSIGNED)，避免負數 |
 | `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送貼文的users，當users的user_id有所變動，也會跟著變動 |
-| `date`   | DATETIME | 日期 | 否 | 發布貼文時設為當前時間，格式為(YYYY-MM-DD HH:MM:SS) |
+| `date`   | DATETIME | 日期 | 否 | 格式為(YYYY-MM-DD HH:MM:SS) |
 | `content`  | VARCHAR(1000) | 內文 | 否 | 長度為1-1000的文字 |
-| `picture`  | VARCHAR(255) | 圖片 | 是 | 網址 |
+| `picture`  | VARCHAR(255) | 圖片 | 是 | 若不為空，網址必須符合有效 URL 格式 |
 
 **SQL說明：**
 - AUTO_INCREMENT:自動產生一個整數，從1開始
