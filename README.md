@@ -100,7 +100,7 @@ CREATE TABLE stores (
 | `store_id`     | INTEGER | 店家代號 | 否 | 主鍵，自動產生(從1開始遞增)，限制為正整數 (UNSIGNED)，避免負數 |
 | `store_name`   | VARCHAR(100) | 店家名稱 | 否 | 長度為1-100的字元，不可為空 |
 | `tel_number`  | VARCHAR(10) | 電話號碼 | 否 | 阿拉伯數字，手機必須為10碼，以 "09" 開頭，或室內電話必須為9碼，以"05"開頭，有唯一性限制 |
-| `address`  | VARCHAR(100) | 地址 | 否 | 長度為1-100的字元，不可為空 |
+| `address`  | VARCHAR(100) | 地址 | 否 | 長度為1-100的字元，必須以雲林縣虎尾鎮開頭，不可為空 |
 | `website`  | VARCHAR(100) | 網站 | 是 | 長度為0-100的字元，若不為空，必須符合有效 URL 格式 |
 | `description`  | VARCHAR(1000) | 簡介 | 是 | 長度為0-1000的字元 |
 
