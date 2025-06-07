@@ -121,7 +121,8 @@ CREATE TABLE user_posts (
     content VARCHAR(1000) NOT NULL,--儲存貼文的文字內容
     picture VARCHAR(255),--儲存與貼文相關的檔案路徑
     PRIMARY KEY (post_id),--確保每個post_id是唯一的識別碼
-    FOREIGN KEY (user_id) REFERENCES users(user_id)--建立user_posts和users表之間的關係，確保user_posts中的每個user_id都與users表中的一個有效user_id相對應
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT chk_date_range CHECK (date >= '2020-01-01 00:00:00' AND date <= CURRENT_TIMESTAMP),
 );
 ```
 
