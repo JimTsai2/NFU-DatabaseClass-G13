@@ -52,7 +52,7 @@ CREATE TABLE users (
     UNIQUE (email),
     UNIQUE (phone_number),
     CHECK (CHAR_LENGTH(user_name) BETWEEN 1 AND 50),--檢查user_name的長度介於1-50
-    CONSTRAINT chk_email CHECK (email REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'),
+    CONSTRAINT chk_email CHECK (email REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'),--檢查email的正確輸入
     CHECK (phone_number REGEXP '^[0-9]{10}$')--檢查電話號碼為0-9的阿拉伯數字，且長度為10碼
 );
 ```
