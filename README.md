@@ -122,15 +122,17 @@ CREATE TABLE user_posts (
     picture VARCHAR(255),--儲存與貼文相關的檔案路徑
     PRIMARY KEY (post_id),--確保每個post_id是唯一的識別碼
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,-- 建立索引，並當users表的user_id被更新時，同步更新
+    CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 1000),--檢查content的長度介於1-1000
+    CONSTRAINT chk_picture CHECK (picture IS NULL OR picture REGEXP '^(https?://)[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/.*)?\\.(jpg|png|gif)$')
 );
 ```
 
 | 欄位名稱 | 資料型別 | 中文說明 | 是否為空值 | 完整性限制 |
 |----------|-------------|----------|----|--------------|
-| `post_id`     | INTEGER | 貼文代號 | 否 | 主鍵，自動產生(從1開始遞增) |
-| `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送貼文的users |
-| `date`   | DATETIME | 日期 | 否 | YYYY-MM-DD HH:MM:SS |
-| `content`  | VARCHAR(1000) | 內文 | 否 | 長度為0-1000的文字 |
+| `post_id`     | INTEGER | 貼文代號 | 否 | 主鍵，自動產生(從1開始遞增)，限制為正整數 (UNSIGNED)，避免負數 |
+| `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送貼文的users，當users的user_id有所變動，也會跟著變動 |
+| `date`   | DATETIME | 日期 | 否 | 發布貼文時設為當前時間，格式為(YYYY-MM-DD HH:MM:SS) |
+| `content`  | VARCHAR(1000) | 內文 | 否 | 長度為1-1000的文字 |
 | `picture`  | VARCHAR(255) | 圖片 | 是 | 網址 |
 
 **SQL說明：**
