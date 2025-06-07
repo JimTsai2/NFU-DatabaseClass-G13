@@ -49,11 +49,11 @@ CREATE TABLE users (
     phone_number VARCHAR(10) NOT NULL,--儲存使用者的電話號碼
     type SET('Customer', 'Proprietor') NOT NULL DEFAULT 'Customer',--標示使用者的類型(客戶或業主)
     PRIMARY KEY (user_id),--確保user_id是唯一的
-    UNIQUE (email),
-    UNIQUE (phone_number),
+    UNIQUE (email),--確保email的唯一性
+    UNIQUE (phone_number),--確保phone_number的唯一性
     CHECK (CHAR_LENGTH(user_name) BETWEEN 1 AND 50),--檢查user_name的長度介於1-50
     CONSTRAINT chk_email CHECK (email REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'),--檢查email的正確輸入
-    CHECK (phone_number REGEXP '^[0-9]{10}$')--檢查電話號碼為0-9的阿拉伯數字，且長度為10碼
+    CHECK (phone_number REGEXP '^[0-9]{10}$')--檢查電話號碼的正確輸入
 );
 ```
 
