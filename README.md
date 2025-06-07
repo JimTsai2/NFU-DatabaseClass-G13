@@ -79,17 +79,19 @@ CREATE TABLE users (
 
 ```sql
 CREATE TABLE stores (
-    store_id INT NOT NULL AUTO_INCREMENT,--每個商店的識別碼
+    store_id INT UNSIGNED AUTO_INCREMENT,--每個商店的識別碼
     store_name VARCHAR(100) NOT NULL,--儲存商店的名稱
-    tel_number CHAR(10) NOT NULL,--儲存商店的電話號碼
+    tel_number VARCHAR(10),--儲存商店的電話號碼
     address VARCHAR(100) NOT NULL,--儲存商店的實體地址
     website VARCHAR(100),--儲存商店的網站
     description VARCHAR(1000),--儲存商店的介紹文字
     PRIMARY KEY (store_id),--確保每個store_id是唯一的
+    UNIQUE(store_name),--確保store_name的唯一性
+    UNIQUE(tel_number),--確保tel_number的唯一性
     CHECK (CHAR_LENGTH(store_name) BETWEEN 1 AND 100),--檢查store_name長度介於1到100
-    CHECK (tel_number REGEXP '^[0-9]{10}$'),--檢查tel_number為0–9的阿拉伯數字，且為10碼
-    CHECK (CHAR_LENGTH(address) BETWEEN 0 AND 100),--檢查address的長度介於1到100個字元
-    CHECK (website IS NULL OR CHAR_LENGTH(website) BETWEEN 0 AND 100),--檢查website的長度介於0-100個字元
+    CONSTRAINT chk_tel_number CHECK (tel_number REGEXP '^09[0-9]{8}$' OR '^05[0-9]{7}$'),--檢查電話正確輸入
+    CONSTRAINT chk_address CHECK (address REGEXP '^[a-zA-Z0-9\\u4e00-\\u9fa5\\s\\-,.]+$'),--檢查address的正確格式
+    CONSTRAINT chk_website CHECK (website IS NULL OR website REGEXP '^https?://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,}$'),--檢查website的正確格式
     CHECK (description IS NULL OR CHAR_LENGTH(description) BETWEEN 0 AND 1000)
 );--檢查description的長度介於0-1000個字元
 ```
@@ -97,7 +99,7 @@ CREATE TABLE stores (
 | 欄位名稱 | 資料型別 | 中文說明 | 是否為空值 | 完整性限制 |
 |----------|-------------|----------|----|--------------|
 | `store_id`     | INTEGER | 店家代號 | 否 | 主鍵，自動產生(從1開始遞增) |
-| `store_name`   | VARCHAR(100) | 店家名稱 | 否 | 長度為1-100的字元 |
+| `store_name`   | VARCHAR(100) | 店家名稱 | 否 | 長度為1-100的字元，不可為空 |
 | `tel_number`  | INTEGER | 電話號碼 | 否 | 阿拉伯數字，必須剛好10碼 |
 | `address`  | VARCHAR(100) | 地址 | 否 | 長度為1-100的字元 |
 | `website`  | VARCHAR(100) | 網站 | 是 | 長度為0-100的字元 |
