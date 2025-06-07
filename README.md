@@ -70,7 +70,7 @@ CREATE TABLE users (
 - PRIMARY KEY:主鍵，確保唯一性
 - CHECK:檢查約束
 
-**真實資料:**
+**真實資料：**
 ![image](https://github.com/user-attachments/assets/05f1aa47-b4b4-4c1f-9664-4219ba92f8de)
 
 ---
