@@ -89,9 +89,7 @@ CREATE TABLE stores (
     UNIQUE(tel_number),--確保tel_number的唯一性
     CHECK (CHAR_LENGTH(store_name) BETWEEN 1 AND 100),--檢查store_name長度介於1到100
     CONSTRAINT chk_tel_number CHECK (tel_number REGEXP '^09[0-9]{8}$' OR '^05[0-9]{7}$'),--檢查電話正確輸入
-    CONSTRAINT chk_address CHECK (
-    address LIKE '雲林縣虎尾鎮%'
-),--檢查address的正確格式
+    CONSTRAINT chk_address CHECK (address LIKE '雲林縣虎尾鎮%'),--檢查address的正確格式
     CONSTRAINT chk_website CHECK (website IS NULL OR website REGEXP '^https?://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,}$'),--檢查website的正確格式
     CHECK (description IS NULL OR CHAR_LENGTH(description) BETWEEN 0 AND 1000)--檢查description的長度介於0-1000個字元
 );
