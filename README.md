@@ -89,6 +89,7 @@ CREATE TABLE users (
 **真實資料：**
 
 ![image](https://github.com/user-attachments/assets/05f1aa47-b4b4-4c1f-9664-4219ba92f8de)
+![image](https://github.com/user-attachments/assets/347cd7bf-c9da-4133-8957-588f73543891)
 
 ---
 
@@ -139,7 +140,7 @@ CREATE TABLE stores (
 **真實資料：**
 
 ![image](https://github.com/user-attachments/assets/2fdf9e91-6cbf-48ba-ae0a-98eb8aab1c39)
-
+![image](https://github.com/user-attachments/assets/037af402-85e5-48af-8937-355339e39372)
 
 ---
 
@@ -212,6 +213,11 @@ CREATE TABLE user_reviews (
 - PRIMARY KEY:主鍵，確保唯一性
 - CHECK:檢查約束
 - FOREIGN KEY:用來引用另一個表中的PRIMARY KEY，建立並加強表之間的鏈接
+
+**真實資料：**
+
+![image](https://github.com/user-attachments/assets/e1e06592-eead-41b0-9fd9-f8baca3d9f8d)
+![image](https://github.com/user-attachments/assets/a4af7b81-7024-4b05-8673-b9a957af93e0)
 
 ---
 
