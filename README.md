@@ -136,6 +136,11 @@ CREATE TABLE stores (
 - CONSTRAINT chk_website CHECK (website IS NULL OR website REGEXP '^https://' OR website REGEXP '^http://')：為 website 添加名為 chk_website 的檢查約束，驗證網站 URL 格式
 - CHECK (description IS NULL OR CHAR_LENGTH(description) BETWEEN 0 AND 1000)：為 description 添加檢查約束，確保描述文字的長度在 0 到 1000 個字元之間，或為 NULL
 
+**真實資料：**
+
+![image](https://github.com/user-attachments/assets/2fdf9e91-6cbf-48ba-ae0a-98eb8aab1c39)
+
+
 ---
 
 ### 貼文資料表
