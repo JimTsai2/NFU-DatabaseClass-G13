@@ -156,26 +156,33 @@ CREATE TABLE user_posts (
     picture VARCHAR(255),--儲存與貼文相關的檔案路徑
     PRIMARY KEY (post_id),--確保每個post_id是唯一的識別碼
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,-- 建立和users的user_id索引
-    FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE;-- 建立和stores的stores_id索引
+    FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE,-- 建立和stores的stores_id索引
     CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 1000),--檢查content的長度介於1-1000
+   CONSTRAINT chk_date CHECK (date REGEXP '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$')--檢查date格式
 );
 ```
 
 | 欄位名稱 | 資料型別 | 中文說明 | 是否為空值 | 完整性限制 |
 |----------|-------------|----------|----|--------------|
 | `post_id`     | INTEGER | 貼文代號 | 否 | 主鍵，自動產生(從1開始遞增)，限制為正整數 (UNSIGNED)，避免負數 |
-| `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送貼文的users |
-| `store_id`     | INTEGER | 店家代號 | 否 | 連接到貼文所指的店家 |
-| `date`   | DATETIME | 日期 | 否 | 格式為(YYYY-MM-DD HH:MM:SS) |
-| `content`  | VARCHAR(1000) | 內文 | 否 | 長度為1-1000的文字 |
+| `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送貼文的users，當users的user_id更新，這裡的user_id會跟著更新 |
+| `store_id`     | INTEGER | 店家代號 | 否 | 連接到貼文所指的stores，當stores的store_id更新，這裡的store_id會跟著更新 |
+| `date`   | DATETIME | 日期 | 否 | 格式為(YYYY-MM-DD HH:MM:SS)，例如(2025/06/15 00:00:00) |
+| `content`  | VARCHAR(1000) | 內文 | 否 | 長度為1-1000的文字，不可為空 |
 | `picture`  | VARCHAR(255) | 圖片 | 是 | 若不為空，網址必須符合有效 URL 格式 |
 
 **說明：**
-- AUTO_INCREMENT:自動產生一個整數，從1開始
-- PRIMARY KEY:主鍵，確保唯一性
-- CHECK:檢查約束
-- FOREIGN KEY:用來引用另一個表中的PRIMARY KEY，建立並加強表之間的鏈接
-
+- INT UNSIGNED：使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
+- AUTO_INCREMENT：自動產生一個整數，從1開始
+- NOT NULL：表示該欄位不能為空，必須提供值
+- DATETIME：儲存日期和時間
+- VARCHAR()：可變長度字串，最大長度為()中數值的字元
+- PRIMARY KEY：主鍵，確保唯一性
+- FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE：為 user_id 定義外鍵約束，參考 users 表的 user_id 欄位，確保 user_id 值存在於 users 表中，且當 users 表的 user_id 更新，user_posts 表的 user_id 會自動同步更新，維持參照完整性
+- FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE：為 store_id 定義外鍵約束，參考 stores 表的 store_id 欄位，確保 store_id 值存在於 stores 表中，且當 stores 表的 store_id 更新，user_posts 表的 store_id 會自動同步更新，維持參照完整性
+- CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 1000)：為 content 添加檢查約束，確保文字內容長度在 1 到 1000 個字元之間
+- CHAR_LENGTH(): 計算字串字元數
+- CONSTRAINT chk_date CHECK (date REGEXP '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$')：為 date 添加名為 chk_date 的檢查約束，確保日期的正確格式
 ---
 
 ### 評價資料表
@@ -191,28 +198,38 @@ CREATE TABLE user_reviews (
     score INT NOT NULL,--儲存評論的評分
     PRIMARY KEY (review_id),--確保每個review_id是唯一的
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,--建立和users的user_id索引
+    FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE,--建立和stores的store_id索引
     CONSTRAINT chk_title CHECK (title REGEXP '^[a-zA-Z0-9\u4e00-\u9fa5]+$'),--檢查title的正確格式 --建立索引，並當users表的user_id被更新時，同步更新
-    CONSTRAINT review_chk_store_id FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE  --建立和stores的stores_id索引
+    CONSTRAINT chk_score_date CHECK (score_date REGEXP '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$'),--檢查score_date格式
     CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 100),--檢查content的長度介於1-100
-    CHECK (score BETWEEN 1 AND 10),--檢查score介於1到10分
+    CHECK (score BETWEEN 1 AND 10)--檢查score介於1到10分
 );
 ```
 
 | 欄位名稱 | 資料型別 | 中文說明 | 是否為空值 | 完整性限制 |
 |----------|-------------|----------|----|--------------|
 | `reviews_id`     | INTEGER | 評論代號 | 否 | 主鍵，自動產生，限制為正整數 (UNSIGNED)，避免負數 |
-| `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送評論的users |
-| `store_id`     | INTEGER | 店家代號 | 否 | 連接到被評論的店家 |
-| `title`     | VARCHAR(10) | 標題 | 否 | 長度為1-10的文字 |
-| `score_date`   | DATETIME | 評價日期 | 否 | 格式為(YYYY-MM-DD HH:MM:SS) |
-| `content`  | VARCHAR(100) | 內文 | 否 | 長度為1-100的文字 |
-| `score`  | INTEGER | 評分 | 否 | 分數介於1-10分 |
+| `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送評論的users，當users的user_id更新，這裡的user_id會跟著更新 |
+| `store_id`     | INTEGER | 店家代號 | 否 | 連接到被評論的stores，當stores的store_id更新，這裡的store_id會跟著更新 |
+| `title`     | VARCHAR(10) | 標題 | 否 | 長度為1-10的文字，不可為空 |
+| `score_date`   | DATETIME | 評價日期 | 否 | 格式為(YYYY-MM-DD HH:MM:SS)，例如(2025/06/15 00:00:00) |
+| `content`  | VARCHAR(100) | 內文 | 否 | 長度為1-100的文字，不可為空 |
+| `score`  | INTEGER | 評分 | 否 | 分數介於1-10分，不可為空 |
 
 **說明：**
-- AUTO_INCREMENT:自動產生一個整數，從1開始
+- INT UNSIGNED：使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
+- AUTO_INCREMENT：自動產生一個整數，從1開始
+- NOT NULL：表示該欄位不能為空，必須提供值
+- VARCHAR()：可變長度字串，最大長度為()中數值的字元
+- DATETIME：儲存日期和時間
 - PRIMARY KEY:主鍵，確保唯一性
-- CHECK:檢查約束
-- FOREIGN KEY:用來引用另一個表中的PRIMARY KEY，建立並加強表之間的鏈接
+- FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE：為 user_id 定義外鍵約束，參考 users 表的 user_id 欄位，確保 user_id 值存在於 users 表中，且當 users 表的 user_id 更新，user_reviews 表的 user_id 會自動同步更新，維持參照完整性
+- FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE：為 store_id 定義外鍵約束，參考 stores 表的 store_id 欄位，確保 store_id 值存在於 stores 表中，且當 stores 表的 store_id 更新，user_reviews 表的 store_id 會自動同步更新，維持參照完整性
+- CONSTRAINT chk_title CHECK (title REGEXP '^[a-zA-Z0-9\u4e00-\u9fa5]+$')：為 title 添加名為 chk_title 的檢查約束，確保標題僅包含字母、數字和中文字符
+- CONSTRAINT chk_score_date CHECK (score_date REGEXP '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$')：為 score_date 添加名為 chk_score_date 的檢查約束，確保評論日期的正確格式
+- CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 100)：為 content 添加檢查約束，確保內容長度在 1 到 100 個字元之間
+- CHAR_LENGTH(): 計算字串字元數
+- CHECK (score BETWEEN 1 AND 10)：為 score 添加檢查約束，確保評分值在 1 到 10 之間
 
 **真實資料：**
 
