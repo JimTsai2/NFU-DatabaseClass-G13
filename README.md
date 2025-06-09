@@ -36,11 +36,11 @@
 
 ### 說明：
 
-#### - users(使用者)：一個使用者可以有0到多個貼文(0..n個user_posts)，一個使用者可以有1到多個評論(1..n個user_reviews)
-  包含：user_id(使用者id)、user_name(使用者名稱)、email(電子郵件)、phone_number(電話號碼)
-#### - user_posts(貼文)：一個貼文與一個使用者相關聯(1..1個users)，一篇貼文可以有0到多張圖片(0..n張pictures)
-  包含：type(類別)、date(發布日期)、content(內文)、user_id(使用者id)
-#### - user_reviews(評論)：一個評論與一個使用者相關聯(1..1個users)，一則評論與一個商家相關聯(1..1個stores)
+#### 1.users(使用者)：一個使用者可以有0到多個貼文(0..n個user_posts)，一個使用者可以有1到多個評論(1..n個user_reviews)
+-包含：user_id(使用者id)、user_name(使用者名稱)、email(電子郵件)、phone_number(電話號碼)
+#### 2.user_posts(貼文)：一個貼文與一個使用者相關聯(1..1個users)，一篇貼文可以有0到多張圖片(0..n張pictures)
+-包含：type(類別)、date(發布日期)、content(內文)、user_id(使用者id)
+#### 3.user_reviews(評論)：一個評論與一個使用者相關聯(1..1個users)，一則評論與一個商家相關聯(1..1個stores)
   
 ## 資料庫Schema
 ### 使用者資料表
