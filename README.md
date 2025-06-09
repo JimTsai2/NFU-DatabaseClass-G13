@@ -31,10 +31,12 @@
 - 查核驗證商家資訊  
 
 
-### ER Diagram
-![1](https://github.com/user-attachments/assets/57eade0c-216b-452e-a74a-d6b24507ef72)
+## ER Diagram
+![1](https://github.com/user-attachments/assets/152e2c41-120f-40d0-aad3-b1e651178523)
 
 
+#### users(使用者)
+-user_id：
  
 ## 資料庫Schema
 ### 使用者資料表
@@ -153,13 +155,13 @@ CREATE TABLE user_reviews (
     store_id INT NOT NULL,--被評論的店家
     title VARCHAR(10) NOT NULL,--評論的簡短標題
     score_date DATETIME NOT NULL,--記錄提交評論的日期和時間
-    content VARCHAR(20) NOT NULL,--儲存評論的文字內容
+    content VARCHAR(100) NOT NULL,--儲存評論的文字內容
     score INT NOT NULL,--儲存評論的評分
     PRIMARY KEY (review_id),--確保每個review_id是唯一的
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,--建立和users的user_id索引
     CONSTRAINT chk_title CHECK (title REGEXP '^[a-zA-Z0-9\u4e00-\u9fa5]+$'),--檢查title的正確格式 --建立索引，並當users表的user_id被更新時，同步更新
     CONSTRAINT review_chk_store_id FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE  --建立和stores的stores_id索引
-    CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 20),--檢查content的長度介於1-20
+    CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 100),--檢查content的長度介於1-100
     CHECK (score BETWEEN 1 AND 10),--檢查score介於1到10分
 );
 ```
@@ -171,7 +173,7 @@ CREATE TABLE user_reviews (
 | `store_id`     | INTEGER | 店家代號 | 否 | 連接到被評論的店家 |
 | `title`     | VARCHAR(10) | 標題 | 否 | 長度為1-10的文字 |
 | `score_date`   | DATETIME | 評價日期 | 否 | 格式為(YYYY-MM-DD HH:MM:SS) |
-| `content`  | VARCHAR(20) | 內文 | 否 | 長度為1-20的文字 |
+| `content`  | VARCHAR(100) | 內文 | 否 | 長度為1-100的文字 |
 | `score`  | INTEGER | 評分 | 否 | 分數介於1-10分 |
 
 **SQL說明：**
