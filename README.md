@@ -73,8 +73,8 @@ CREATE TABLE users (
 | `type`  | SET | 身分類別 | 否 | 分為客戶身分、老闆身分，預設值設為"客戶身分"，不可為空  |
 
 **說明：**
-- AUTO_INCREMENT：自動產生一個整數，從1開始
 - INT UNSIGNED：使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
+- AUTO_INCREMENT：自動產生一個整數，從1開始
 - VARCHAR()：可變長度字串，最大長度為()中數值的字元
 - NOT NULL：表示該欄位不能為空，必須提供值
 - type：定義一個欄位，用來標示使用者類型
@@ -97,11 +97,11 @@ CREATE TABLE users (
 ```sql
 CREATE TABLE stores (
     store_id INT UNSIGNED AUTO_INCREMENT,--每個商店的識別碼
-    store_name VARCHAR(100) NOT NULL,--儲存商店的名稱
-    tel_number VARCHAR(10) DEFAULT NULL,--儲存商店的電話號碼
-    address VARCHAR(100) NOT NULL,--儲存商店的實體地址
-    website VARCHAR(100),--儲存商店的網站
-    description VARCHAR(1000),--儲存商店的介紹文字
+    store_name VARCHAR(100) NOT NULL,--儲存商家的名稱
+    tel_number VARCHAR(10) DEFAULT NULL,--儲存商家的電話號碼
+    address VARCHAR(100) NOT NULL,--儲存商家的實體地址
+    website VARCHAR(100),--儲存商家的網站
+    description VARCHAR(1000),--儲存商家的介紹文字
     PRIMARY KEY (store_id),--確保每個store_id是唯一的
     UNIQUE(tel_number),--確保tel_number的唯一性
     CHECK (CHAR_LENGTH(store_name) BETWEEN 1 AND 100),--檢查store_name長度介於1到100
@@ -116,15 +116,25 @@ CREATE TABLE stores (
 |----------|-------------|----------|----|--------------|
 | `store_id`     | INTEGER | 店家代號 | 否 | 主鍵，自動產生(從1開始遞增)，限制為正整數 (UNSIGNED)，避免負數 |
 | `store_name`   | VARCHAR(100) | 店家名稱 | 否 | 長度為1-100的字元，不可為空 |
-| `tel_number`  | VARCHAR(10) | 電話號碼 | 是 | 阿拉伯數字，手機必須為10碼，以 "09" 開頭，或室內電話必須為9碼，以"05"開頭，有唯一性限制 |
-| `address`  | VARCHAR(100) | 地址 | 否 | 長度為1-100的字元，必須以雲林縣虎尾鎮開頭，不可為空 |
-| `website`  | VARCHAR(100) | 網站 | 是 | 長度為0-100的字元，若不為空，必須符合有效 URL 格式 |
+| `tel_number`  | VARCHAR(10) | 電話號碼 | 是 | 阿拉伯數字，必須符合電話格式，手機必須為10碼，以"09"開頭，例如(0912345678)，或室內電話必須為9碼，以"05"開頭，例如(051234567)，有唯一性限制 |
+| `address`  | VARCHAR(100) | 地址 | 否 | 長度為1-100的字元，必須以"雲林縣虎尾鎮"開頭，例如(雲林縣虎尾鎮88號)，不可為空 |
+| `website`  | VARCHAR(100) | 網站 | 是 | 長度為0-100的字元，若不為空，必須以"https://開頭"，例如(https://example.com) |
 | `description`  | VARCHAR(1000) | 簡介 | 是 | 長度為0-1000的字元 |
 
 **說明：**
-- AUTO_INCREMENT:自動產生一個整數，從1開始
-- PRIMARY KEY:主鍵，確保唯一性
-- CHECK:檢查約束
+- INT UNSIGNED：使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
+- AUTO_INCREMENT：自動產生一個整數，從1開始
+- VARCHAR()：可變長度字串，最大長度為()中數值的字元
+- NOT NULL：表示該欄位不能為空，必須提供值
+- DEFAULT NULL：若未提供值，預設為 NULL（允許空值）
+- PRIMARY KEY：主鍵，確保唯一性
+- UNIQUE()：為()中的欄位設置唯一約束，確保在表中是唯一的
+- CHECK()：為()中的欄位添加檢查約束
+- CHAR_LENGTH(): 計算字串字元數
+- CONSTRAINT chk_tel_number CHECK (tel_number REGEXP '^09[0-9]{8}$' OR tel_number REGEXP '^05[0-9]{7}$')：為 tel_number 添加名為 chk_tel_number 的檢查約束，驗證電話號碼格式
+- CONSTRAINT chk_address CHECK (address LIKE '雲林縣虎尾鎮%')：為 address 添加名為 chk_address 的檢查約束，確保地址以「雲林縣虎尾鎮」開頭
+- CONSTRAINT chk_website CHECK (website IS NULL OR website REGEXP '^https://' OR website REGEXP '^http://')：為 website 添加名為 chk_website 的檢查約束，驗證網站 URL 格式
+- CHECK (description IS NULL OR CHAR_LENGTH(description) BETWEEN 0 AND 1000)：為 description 添加檢查約束，確保描述文字的長度在 0 到 1000 個字元之間，或為 NULL
 
 ---
 
