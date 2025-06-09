@@ -72,8 +72,10 @@ CREATE TABLE users (
 | `phone_number`  | VARCHAR(10) | 電話號碼 | 否 | 阿拉伯數字，必須剛好10碼，需以“09”開頭，不可為空，有唯一性約束  |
 | `type`  | SET | 身分類別 | 否 | 分為客戶身分、老闆身分，預設值設為"客戶身分"，不可為空  |
 
-**SQL說明：**
+**說明：**
 - AUTO_INCREMENT:自動產生一個整數，從1開始
+- INT UNSIGNED: 使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
+- VARCHAR(): 可變長度字串，最大長度為 ()中數值 個字元
 - PRIMARY KEY:主鍵，確保唯一性
 - CHECK:檢查約束
 
@@ -112,7 +114,7 @@ CREATE TABLE stores (
 | `website`  | VARCHAR(100) | 網站 | 是 | 長度為0-100的字元，若不為空，必須符合有效 URL 格式 |
 | `description`  | VARCHAR(1000) | 簡介 | 是 | 長度為0-1000的字元 |
 
-**SQL說明：**
+**說明：**
 - AUTO_INCREMENT:自動產生一個整數，從1開始
 - PRIMARY KEY:主鍵，確保唯一性
 - CHECK:檢查約束
@@ -146,7 +148,7 @@ CREATE TABLE user_posts (
 | `content`  | VARCHAR(1000) | 內文 | 否 | 長度為1-1000的文字 |
 | `picture`  | VARCHAR(255) | 圖片 | 是 | 若不為空，網址必須符合有效 URL 格式 |
 
-**SQL說明：**
+**說明：**
 - AUTO_INCREMENT:自動產生一個整數，從1開始
 - PRIMARY KEY:主鍵，確保唯一性
 - CHECK:檢查約束
@@ -184,7 +186,7 @@ CREATE TABLE user_reviews (
 | `content`  | VARCHAR(100) | 內文 | 否 | 長度為1-100的文字 |
 | `score`  | INTEGER | 評分 | 否 | 分數介於1-10分 |
 
-**SQL說明：**
+**說明：**
 - AUTO_INCREMENT:自動產生一個整數，從1開始
 - PRIMARY KEY:主鍵，確保唯一性
 - CHECK:檢查約束
