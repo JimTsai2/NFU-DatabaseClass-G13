@@ -59,7 +59,7 @@ CREATE TABLE users (
     UNIQUE (email),--確保email的唯一性
     UNIQUE (phone_number),--確保phone_number的唯一性
     CHECK (CHAR_LENGTH(user_name) BETWEEN 1 AND 50),--檢查user_name的長度介於1-50
-    CONSTRAINT chk_email CHECK (email REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'),--檢查email的正確輸入
+    CONSTRAINT chk_email CHECK (email REGEXP '^[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'),--檢查email的正確輸入
     CONSTRAINT chk_phone_number CHECK (phone_number REGEXP '^09[0-9]{8}$')--檢查電話號碼的正確輸入
 );
 ```
@@ -68,16 +68,23 @@ CREATE TABLE users (
 |----------|-------------|----------|----|--------------|
 | `user_id`     | INTEGER | 使用者代號 | 否 | 主鍵，自動產生，限制為正整數（UNSIGNED），避免負數 |
 | `user_name`   | VARCHAR(50) | 使用者姓名 | 否 | 長度為1-50的字元，不可為空 |
-| `email`  | VARCHAR(100) | 電子郵件 | 否 | 長度為1-100的字元，必須符合電子郵件格式，例如包含“@”符號及有效域名，不可為空，有唯一性約束 |
-| `phone_number`  | VARCHAR(10) | 電話號碼 | 否 | 阿拉伯數字，必須剛好10碼，需以“09”開頭，不可為空，有唯一性約束  |
+| `email`  | VARCHAR(100) | 電子郵件 | 否 | 長度為1-100的字元，必須符合電子郵件格式，例如(41143200@nfu.edu.tw)，不可為空，有唯一性約束 |
+| `phone_number`  | VARCHAR(10) | 電話號碼 | 否 | 阿拉伯數字，必須剛好10碼，必須符合電話格式，以"09"開頭，例如(0912345678)，不可為空，有唯一性約束  |
 | `type`  | SET | 身分類別 | 否 | 分為客戶身分、老闆身分，預設值設為"客戶身分"，不可為空  |
 
 **說明：**
-- AUTO_INCREMENT:自動產生一個整數，從1開始
-- INT UNSIGNED: 使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
-- VARCHAR(): 可變長度字串，最大長度為 ()中數值 個字元
-- PRIMARY KEY:主鍵，確保唯一性
-- CHECK:檢查約束
+- AUTO_INCREMENT：自動產生一個整數，從1開始
+- INT UNSIGNED：使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
+- VARCHAR()：可變長度字串，最大長度為()中數值的字元
+- NOT NULL：表示該欄位不能為空，必須提供值
+- type：定義一個欄位，用來標示使用者類型
+- SET('Customer', 'Proprietor')：限制該欄位只能是 Customer 或 Proprietor 之一
+- DEFAULT 'Customer'：如果插入記錄時未指定 type，預設值為 Customer
+- PRIMARY KEY：主鍵，確保唯一性
+- UNIQUE()：為()中的欄位設置唯一約束，確保在表中是唯一的
+- CHECK()：為()中的欄位添加檢查約束
+- CONSTRAINT chk_email CHECK (email REGEXP '^[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')：為 email 欄位添加名為 chk_email 的檢查約束，使用正規表達式（REGEXP）驗證電子郵件格式
+- CONSTRAINT chk_phone_number CHECK (phone_number REGEXP '^09[0-9]{8}$')：為 phone_number 欄位添加名為 chk_phone_number 的檢查約束，使用正規表達式驗證電話號碼格式
 
 **真實資料：**
 
@@ -135,7 +142,6 @@ CREATE TABLE user_posts (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,-- 建立和users的user_id索引
     FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE;-- 建立和stores的stores_id索引
     CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 1000),--檢查content的長度介於1-1000
-    CONSTRAINT chk_picture CHECK (picture IS NULL OR picture REGEXP '^(https?://)[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/.*)?\\.(jpg|png|gif)$')
 );
 ```
 
