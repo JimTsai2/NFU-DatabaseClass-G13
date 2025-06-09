@@ -81,16 +81,16 @@ CREATE TABLE users (
 CREATE TABLE stores (
     store_id INT UNSIGNED AUTO_INCREMENT,--每個商店的識別碼
     store_name VARCHAR(100) NOT NULL,--儲存商店的名稱
-    tel_number VARCHAR(10),--儲存商店的電話號碼
+    tel_number VARCHAR(10) DEFAULT NULL,--儲存商店的電話號碼
     address VARCHAR(100) NOT NULL,--儲存商店的實體地址
     website VARCHAR(100),--儲存商店的網站
     description VARCHAR(1000),--儲存商店的介紹文字
     PRIMARY KEY (store_id),--確保每個store_id是唯一的
     UNIQUE(tel_number),--確保tel_number的唯一性
     CHECK (CHAR_LENGTH(store_name) BETWEEN 1 AND 100),--檢查store_name長度介於1到100
-    CONSTRAINT chk_tel_number CHECK (tel_number REGEXP '^09[0-9]{8}$' OR '^05[0-9]{7}$'),--檢查電話正確輸入
+    CONSTRAINT chk_tel_number CHECK (`tel_number` REGEXP '^09[0-9]{8}$' OR `tel_number` REGEXP '^05[0-9]{7}$'),--檢查電話正確輸入
     CONSTRAINT chk_address CHECK (address LIKE '雲林縣虎尾鎮%'),--檢查address的正確格式
-    CONSTRAINT chk_website CHECK (website IS NULL OR website REGEXP '^https?://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,}$'),--檢查website的正確格式
+    CONSTRAINT chk_website CHECK (`website` IS NULL OR `website` REGEXP '^https://' OR `website` REGEXP '^http://'),--檢查website的正確格式
     CHECK (description IS NULL OR CHAR_LENGTH(description) BETWEEN 0 AND 1000)--檢查description的長度介於0-1000個字元
 );
 ```
@@ -99,7 +99,7 @@ CREATE TABLE stores (
 |----------|-------------|----------|----|--------------|
 | `store_id`     | INTEGER | 店家代號 | 否 | 主鍵，自動產生(從1開始遞增)，限制為正整數 (UNSIGNED)，避免負數 |
 | `store_name`   | VARCHAR(100) | 店家名稱 | 否 | 長度為1-100的字元，不可為空 |
-| `tel_number`  | VARCHAR(10) | 電話號碼 | 否 | 阿拉伯數字，手機必須為10碼，以 "09" 開頭，或室內電話必須為9碼，以"05"開頭，有唯一性限制 |
+| `tel_number`  | VARCHAR(10) | 電話號碼 | 是 | 阿拉伯數字，手機必須為10碼，以 "09" 開頭，或室內電話必須為9碼，以"05"開頭，有唯一性限制 |
 | `address`  | VARCHAR(100) | 地址 | 否 | 長度為1-100的字元，必須以雲林縣虎尾鎮開頭，不可為空 |
 | `website`  | VARCHAR(100) | 網站 | 是 | 長度為0-100的字元，若不為空，必須符合有效 URL 格式 |
 | `description`  | VARCHAR(1000) | 簡介 | 是 | 長度為0-1000的字元 |
@@ -122,8 +122,8 @@ CREATE TABLE user_posts (
     content VARCHAR(1000) NOT NULL,--儲存貼文的文字內容
     picture VARCHAR(255),--儲存與貼文相關的檔案路徑
     PRIMARY KEY (post_id),--確保每個post_id是唯一的識別碼
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,-- 建立user_id索引
-    FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE;-- 建立store_id索引
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,-- 建立和users的user_id索引
+    FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE;-- 建立和stores的stores_id索引
     CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 1000),--檢查content的長度介於1-1000
     CONSTRAINT chk_picture CHECK (picture IS NULL OR picture REGEXP '^(https?://)[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/.*)?\\.(jpg|png|gif)$')
 );
@@ -152,13 +152,15 @@ CREATE TABLE user_posts (
 CREATE TABLE user_reviews (
     review_id INT UNSIGNED AUTO_INCREMENT,--每個評論的識別碼
     user_id INT NOT NULL,--撰寫評論的使用者
+    store_id INT NOT NULL,--被評論的店家
     title VARCHAR(10) NOT NULL,--評論的簡短標題
     score_date DATETIME NOT NULL,--記錄提交評論的日期和時間
     content VARCHAR(20) NOT NULL,--儲存評論的文字內容
     score INT NOT NULL,--儲存評論的評分
     PRIMARY KEY (review_id),--確保每個review_id是唯一的
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,--建立索引，並當users表的user_id被更新時，同步更新
-    CONSTRAINT chk_title CHECK (title REGEXP '^[a-zA-Z0-9\u4e00-\u9fa5]+$'),--檢查title的正確格式
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,--建立和users的user_id索引
+    CONSTRAINT chk_title CHECK (title REGEXP '^[a-zA-Z0-9\u4e00-\u9fa5]+$'),--檢查title的正確格式 --建立索引，並當users表的user_id被更新時，同步更新
+    CONSTRAINT review_chk_store_id FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE  --建立和stores的stores_id索引
     CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 20),--檢查content的長度介於1-20
     CHECK (score BETWEEN 1 AND 10),--檢查score介於1到10分
 );
@@ -167,7 +169,8 @@ CREATE TABLE user_reviews (
 | 欄位名稱 | 資料型別 | 中文說明 | 是否為空值 | 完整性限制 |
 |----------|-------------|----------|----|--------------|
 | `reviews_id`     | INTEGER | 評論代號 | 否 | 主鍵，自動產生，限制為正整數 (UNSIGNED)，避免負數 |
-| `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送評論的users，當users的user_id有所變動，也會跟著變動 |
+| `user_id`     | INTEGER | 使用者代號 | 否 | 連接到發送評論的users |
+| `store_id`     | INTEGER | 店家代號 | 否 | 連接到被評論的店家 |
 | `title`     | VARCHAR(10) | 標題 | 否 | 長度為1-10的文字 |
 | `score_date`   | DATETIME | 評價日期 | 否 | 格式為(YYYY-MM-DD HH:MM:SS) |
 | `content`  | VARCHAR(20) | 內文 | 否 | 長度為1-20的文字 |
