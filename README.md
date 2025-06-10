@@ -195,8 +195,8 @@ CREATE TABLE user_reviews (
     content VARCHAR(100) NOT NULL,--儲存評論的文字內容
     score INT NOT NULL,--儲存評論的評分
     PRIMARY KEY (review_id),--確保每個review_id是唯一的
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,--建立和users的user_id索引，並當users表的user_id被更新時，同步更新
-    FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE,--建立和stores的store_id索引，並當stores表的store_id被更新時，同步更新
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,--建立和users的user_id索引
+    FOREIGN KEY (store_id) REFERENCES stores (store_id) ON UPDATE CASCADE,--建立和stores的store_id索引
     CONSTRAINT chk_title CHECK (title REGEXP '^[a-zA-Z0-9\u4e00-\u9fa5]+$'),--檢查title的正確格式
     CHECK (CHAR_LENGTH(content) BETWEEN 1 AND 100),--檢查content的長度介於1-100
     CHECK (score BETWEEN 1 AND 10)--檢查score介於1到10分
