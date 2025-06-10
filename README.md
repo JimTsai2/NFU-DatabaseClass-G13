@@ -72,7 +72,7 @@ CREATE TABLE users (
 | `phone_number`  | VARCHAR(10) | 電話號碼 | 否 | 阿拉伯數字，必須剛好10碼，必須符合電話格式，以"09"開頭，例如(0912345678)，不可為空，有唯一性約束  |
 | `type`  | SET | 身分類別 | 否 | 分為客戶身分、老闆身分，預設值設為"客戶身分"，不可為空  |
 
-**說明：**
+**SQL說明：**
 - INT UNSIGNED：使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
 - AUTO_INCREMENT：自動產生一個整數，從1開始
 - VARCHAR()：可變長度字串，最大長度為()中數值的字元
@@ -122,7 +122,7 @@ CREATE TABLE stores (
 | `website`  | VARCHAR(100) | 網站 | 是 | 長度為0-100的字元，若不為空，必須以"https://"開頭，例如(https://example.com) |
 | `description`  | VARCHAR(1000) | 簡介 | 是 | 長度為0-1000的字元 |
 
-**說明：**
+**SQL說明：**
 - INT UNSIGNED：使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
 - AUTO_INCREMENT：自動產生一個整數，從1開始
 - VARCHAR()：可變長度字串，最大長度為()中數值的字元
@@ -170,7 +170,7 @@ CREATE TABLE user_posts (
 | `content`  | VARCHAR(1000) | 內文 | 否 | 長度為1-1000的文字，不可為空 |
 | `picture`  | VARCHAR(255) | 圖片 | 是 | 若不為空，則為檔案的原路徑 |
 
-**說明：**
+**SQL說明：**
 - INT UNSIGNED：使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
 - AUTO_INCREMENT：自動產生一個整數，從1開始
 - NOT NULL：表示該欄位不能為空，必須提供值
@@ -213,7 +213,7 @@ CREATE TABLE user_reviews (
 | `content`  | VARCHAR(100) | 內文 | 否 | 長度為1-100的文字，不可為空 |
 | `score`  | INTEGER | 評分 | 否 | 分數介於1-10分，不可為空 |
 
-**說明：**
+**SQL說明：**
 - INT UNSIGNED：使用無符號整數（只能是正整數，範圍為 0 到 4294967295）
 - AUTO_INCREMENT：自動產生一個整數，從1開始
 - NOT NULL：表示該欄位不能為空，必須提供值
