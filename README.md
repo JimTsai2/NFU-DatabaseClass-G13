@@ -286,23 +286,22 @@ INSERT INTO user_reviews (review_id, user_id, store_id, title, score_date, conte
 ---
 
 ## View SQL
-### 查看所有店家的總評價平均分數跟總評價數量
+### 查看所有店家的總評價平均分數、總評價和總評論數量
 ```sql
-CREATE VIEW store_review_summary AS
+CREATE VIEW store_activity_summary AS
 SELECT 
     s.store_id,
     s.store_name,
-    s.tel_number,
     s.address,
-    s.website,
-    s.description,
-    AVG(r.score) AS average_score,
-    COUNT(r.review_id) AS review_count
+    COUNT(DISTINCT p.post_id) AS post_count,
+    COUNT(DISTINCT r.review_id) AS review_count,
+    AVG(r.score) AS average_score
 FROM stores s
+LEFT JOIN user_posts p ON s.store_id = p.store_id
 LEFT JOIN user_reviews r ON s.store_id = r.store_id
-GROUP BY s.store_id, s.store_name, s.tel_number, s.address, s.website, s.description;
+GROUP BY s.store_id, s.store_name, s.address;
 ```
-![image](https://github.com/user-attachments/assets/a6395be6-51c2-4bfc-981e-a94eba728e9b)
+![image](https://github.com/user-attachments/assets/52b089bd-2c27-4627-a34d-5a3ece3df44f)
 
 ---
 ### 查看所有貼文並附上店家以及評論的使用者資訊
