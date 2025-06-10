@@ -286,7 +286,25 @@ INSERT INTO user_reviews (review_id, user_id, store_id, title, score_date, conte
 ---
 
 ## View SQL
-### 查看所有店家的總評價平均分數、總評價和總評論數量
+### 查看所有使用者所發布的貼文數量
+```sql
+CREATE VIEW user_post_summary AS
+SELECT 
+    u.user_id,
+    u.user_name,
+    u.email,
+    u.phone_number,
+    u.type,
+    COUNT(p.post_id) AS post_count
+FROM users u
+LEFT JOIN user_posts p ON u.user_id = p.user_id
+GROUP BY u.user_id, u.user_name, u.email, u.phone_number, u.type;
+```
+![image](https://github.com/user-attachments/assets/6a8afbd5-9b87-40ff-a98d-82a4e45d90f6)
+
+
+---
+### 查看所有店家的總評價平均分數、總評價和總貼文數量
 ```sql
 CREATE VIEW store_activity_summary AS
 SELECT 
@@ -304,7 +322,7 @@ GROUP BY s.store_id, s.store_name, s.address;
 ![image](https://github.com/user-attachments/assets/52b089bd-2c27-4627-a34d-5a3ece3df44f)
 
 ---
-### 查看所有貼文並附上店家以及評論的使用者資訊
+### 查看所有貼文並附上店家以及貼文的使用者資訊
 ```sql
 CREATE VIEW post_details AS
 SELECT 
