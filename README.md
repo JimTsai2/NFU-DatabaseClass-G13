@@ -87,8 +87,19 @@ CREATE TABLE users (
 - CONSTRAINT chk_phone_number CHECK (phone_number REGEXP '^09[0-9]{8}$')：為 phone_number 欄位添加名為 chk_phone_number 的檢查約束，使用正規表達式驗證電話號碼格式
 
 **真實資料：**
-
-![image](https://github.com/user-attachments/assets/05f1aa47-b4b4-4c1f-9664-4219ba92f8de)
+```sql
+INSERT INTO users (user_id, user_name, email, phone_number, type) VALUES
+(1, '虎大尾', 'huweibig@nfu.edu.tw', '0900000001', 'Proprietor'),
+(2, '虎中尾', 'huweimedium@nfu.edu.tw', '0900000002', 'Customer'),
+(3, '虎小尾', 'huweismall@nfu.edu.tw', '0900000003', 'Customer'),
+(4, '虎大威', 'hubigwei@nfu.edu.tw', '0900000004', 'Customer'),
+(5, '虎中威', 'humediumwei@nfu.edu.tw', '0900000005', 'Customer'),
+(6, '虎小威', 'husmallwei@nfu.edu.tw', '0900000006', 'Customer'),
+(7, '雲斗南', 'yundounan@nfu.edu.tw', '0900000007', 'Customer'),
+(8, '雲斗六', 'yundouliu@nfu.edu.tw', '0900000008', 'Customer'),
+(9, '雲西螺', 'yunxiluo@nfu.edu.tw', '0900000009', 'Customer'),
+(10, '雲北港', 'yunbeigang@nfu.edu.tw', '0900000010', 'Customer');
+```
 ![image](https://github.com/user-attachments/assets/347cd7bf-c9da-4133-8957-588f73543891)
 
 ---
