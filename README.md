@@ -138,8 +138,19 @@ CREATE TABLE stores (
 - CHECK (description IS NULL OR CHAR_LENGTH(description) BETWEEN 0 AND 1000)：為 description 添加檢查約束，確保描述文字的長度在 0 到 1000 個字元之間，或為 NULL
 
 **真實資料：**
-
-![image](https://github.com/user-attachments/assets/2fdf9e91-6cbf-48ba-ae0a-98eb8aab1c39)
+```sql
+INSERT INTO stores (store_id, store_name, tel_number, address, website, description) VALUES
+(1, '麥當勞-虎尾新興餐廳', '056314141', '雲林縣虎尾鎮新興路88號1樓', 'https://www.mcdonalds.com/tw/zh-tw.html', '老字號的經典連鎖速食店，以漢堡和薯條聞名。'),
+(2, '色鼎燒肉虎尾店', '056361748', '雲林縣虎尾鎮林森路二段125號', 'http://www.color-pot.com.tw/', NULL),
+(3, '登旺簡速餐', '056327678', '雲林縣虎尾鎮文化路46號', NULL, NULL),
+(4, '藤原-文化店', '0930857200', '雲林縣虎尾鎮文化路50號', NULL, '藤原壽司分店'),
+(5, '藤原壽司', '056311452', '雲林縣虎尾鎮林森路一段533號', NULL, '藤原壽司日式炸豬排餐廳'),
+(6, '50Pizza-虎尾人氣比薩焗烤美食專賣店', '056330606', '雲林縣虎尾鎮中正路235號', 'https://www.facebook.com/huwei50pizza/', '50Pizza在地經營已有20年，以平價焗烤美食著稱，品項眾多，且內有超過100個座位，非常適合一群朋友聚會，一定能找到自己喜歡吃的東西。'),
+(7, '九鼎豆花(虎尾店)', '056328936', '雲林縣虎尾鎮西安街1號', NULL, NULL),
+(8, '六扇門時尚湯鍋 虎尾中正店', '056337737', '雲林縣虎尾鎮中正路264號', 'https://www.6owldoor.com/', '六扇門時尚湯鍋擁有數十種湯頭、豐富自助吧、明亮舒適的環境，給每位來用餐的顧客都能以最平實的價格，來享受我們的精緻、我們的用心。'),
+(9, '虎尾婆婆的店', NULL, '雲林縣虎尾鎮工專路27號', NULL, NULL),
+(10, '古記燒臘店(虎尾)', '056328707', '雲林縣虎尾鎮中正路315號', NULL, NULL);
+```
 ![image](https://github.com/user-attachments/assets/037af402-85e5-48af-8937-355339e39372)
 
 ---
@@ -259,7 +270,6 @@ INSERT INTO user_reviews (review_id, user_id, store_id, title, score_date, conte
 (9, 6, 3, 'CP值很高', '2025-06-03 12:54:46', '東西很好吃，尤其是紅槽排骨飯，吃起來味道有點像烤肉，一個便當才75元，吃得很飽', 8),
 (10, 5, 7, '內用空間蠻大整體乾淨', '2025-06-04 19:07:47', '鐵支路附近，多種豆花可以選～還有分糖水跟豆漿的豆花，大碗真的超級飽', 6);
 ```
-![image](https://github.com/user-attachments/assets/e1e06592-eead-41b0-9fd9-f8baca3d9f8d)
 ![image](https://github.com/user-attachments/assets/a4af7b81-7024-4b05-8673-b9a957af93e0)
 
 ---
