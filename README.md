@@ -285,3 +285,44 @@ INSERT INTO user_reviews (review_id, user_id, store_id, title, score_date, conte
 
 ---
 
+##View SQL
+###查看所有店家的總評價平均分數跟總評價數量
+```sql
+CREATE VIEW store_review_summary AS
+SELECT 
+    s.store_id,
+    s.store_name,
+    s.tel_number,
+    s.address,
+    s.website,
+    s.description,
+    AVG(r.score) AS average_score,
+    COUNT(r.review_id) AS review_count
+FROM stores s
+LEFT JOIN user_reviews r ON s.store_id = r.store_id
+GROUP BY s.store_id, s.store_name, s.tel_number, s.address, s.website, s.description;
+```
+![image](https://github.com/user-attachments/assets/a6395be6-51c2-4bfc-981e-a94eba728e9b)
+
+---
+###查看所有貼文並附上店家以及評論的使用者資訊
+```sql
+CREATE VIEW post_details AS
+SELECT 
+    p.post_id,
+    p.date,
+    p.content,
+    p.picture,
+    u.user_id,
+    u.user_name,
+    u.type,
+    s.store_id,
+    s.store_name,
+    s.address
+FROM user_posts p
+JOIN users u ON p.user_id = u.user_id
+JOIN stores s ON p.store_id = s.store_id;
+```
+![image](https://github.com/user-attachments/assets/8e8c74d8-c0d6-4f2d-8276-6a9e37992e36)
+
+---
