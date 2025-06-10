@@ -285,8 +285,8 @@ INSERT INTO user_reviews (review_id, user_id, store_id, title, score_date, conte
 
 ---
 
-##View SQL
-###查看所有店家的總評價平均分數跟總評價數量
+## View SQL
+### 查看所有店家的總評價平均分數跟總評價數量
 ```sql
 CREATE VIEW store_review_summary AS
 SELECT 
@@ -305,7 +305,7 @@ GROUP BY s.store_id, s.store_name, s.tel_number, s.address, s.website, s.descrip
 ![image](https://github.com/user-attachments/assets/a6395be6-51c2-4bfc-981e-a94eba728e9b)
 
 ---
-###查看所有貼文並附上店家以及評論的使用者資訊
+### 查看所有貼文並附上店家以及評論的使用者資訊
 ```sql
 CREATE VIEW post_details AS
 SELECT 
