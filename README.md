@@ -343,3 +343,8 @@ JOIN stores s ON p.store_id = s.store_id;
 ![image](https://github.com/user-attachments/assets/8e8c74d8-c0d6-4f2d-8276-6a9e37992e36)
 
 ---
+
+## 大語言模型輔助部分
+- 完整性限制使用正規表示式來限制，使用大語言模型協助了解正規表示式的用法以及資料所需要的限制建議
+- 對於相關功能View的FROM 與JOIN等等的協助
+- 對於資料型別的建議參考
