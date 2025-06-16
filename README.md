@@ -32,7 +32,7 @@
 
 
 ## ER Diagram
-![1](https://github.com/user-attachments/assets/152e2c41-120f-40d0-aad3-b1e651178523)
+![1](https://github.com/user-attachments/assets/31ecb48b-3385-47e9-83ab-63d4d1e91607)
 
 ### 說明：
 
